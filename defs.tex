@@ -1,13 +1,23 @@
-%Language
+% Language
 \usepackage[utf8]{inputenc}
-\usepackage[danish, latin, english]{babel}
+\usepackage[english]{babel}
 \babelhyphenation[english]{feed-back-pro-ces-ser}
 
-% Formatting
-\usepackage[a4paper,width=150mm,headheight=110pt,top=30mm,bottom=30mm,includefoot]{geometry}
-\linespread{1.3} % 1.5 linespread 
-\setlength{\parskip}{1em}   % Double space between paragraphs 
-\setlength{\parindent}{0pt} %
+% Page Formatting
+\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, includefoot]{geometry}
+
+% Line Height
+\usepackage{setspace}
+\linespread{1.3}
+
+% Paragraph Indentation
+\setlength{\parindent}{0pt}
+
+% Captions
+\usepackage{caption}
+\usepackage{subcaption}
+
+% Header
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \lhead{}
@@ -15,63 +25,102 @@
 \makeatletter
 \rhead{\slshape{\nouppercase{\rightmark}}}
 \makeatother
-\usepackage{setspace}
-\usepackage{wrapfig}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage[bottom]{footmisc}   % Footnote options
+
+% Footnote
+\usepackage[bottom]{footmisc}
 \emergencystretch=1em
 \usepackage{scrextend}
 \addtokomafont{labelinglabel}{\textnormal}
-\addto{\captionsenglish}{\renewcommand{\abstractname}{Abstract}}
 \usepackage{pdfpages}
-\usepackage{needspace} 
-\usepackage{tocloft}  %Change dept og TOC
-\setcounter{secnumdepth}{2} % toggle number of sections
-\setcounter{tocdepth}{2} % toggle tocdept  
+\usepackage{needspace}
 
-
-% Math &symbols
-\usepackage{float}                  
+% Math & Symbols
+\usepackage{float}
 \usepackage{amsmath}
-\usepackage{amssymb} 
-\usepackage{gensymb}
-\usepackage{mathtools}
-\usepackage{esvect} % write vectors
+\usepackage{siunitx}
+\usepackage{esvect}
+\usepackage{verbatim}
 
-%Lists & tables
+% Equation Formatting
+\setlength{\abovedisplayskip}{1em}
+\setlength{\belowdisplayskip}{1em}
+
+% Enumeration & Tables
 \usepackage{enumerate}
 \usepackage{enumitem}
-\usepackage{multirow} % Table
-\usepackage{multicol}    % Enabels multicollums in tabels
-\usepackage{enumitem}
+\usepackage{multirow} 
+\usepackage{multicol}
 \usepackage{ltablex}
 \usepackage{spreadtab}
-\usepackage{booktabs}% enable item in table
+\usepackage{booktabs}
+\usepackage{tabto}
+
+% Enumeration Formatting
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
+\newcommand{\sqrbulletsml}{\textcolor{black}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+\newcommand{\sqrbulletmed}{\textcolor{black}{\raisebox{.40ex}{\rule{.7ex}{.7ex}}}}
+
+\renewcommand{\labelitemi}{\sqrbulletmed}
+\renewcommand{\labelitemii}{\sqrbulletsml}
+\renewcommand{\labelitemiii}{\sqrbulletsml}
+\renewcommand{\labelitemiv}{\sqrbulletsml}
+
+% Colors
+\usepackage{xcolor}
+
+% Color Definitions (latexcolor.com)
+\definecolor{cerulean}{rgb}{0.0, 0.48, 0.65}
+\definecolor{earthyellow}{rgb}{0.88, 0.66, 0.37}
+\definecolor{darkmagenta}{rgb}{0.55, 0.0, 0.55}
+\definecolor{darkolivegreen}{rgb}{0.33, 0.42, 0.18}
+\definecolor{codegray}{gray}{0.9}
+%\newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
 
 % Code
-\usepackage{algorithm}                      % ...
-\usepackage[noend]{algpseudocode}           % ...
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 \usepackage{listings}
 \renewcommand{\arraystretch}{1.2}
 \renewcommand{\tabcolsep}{0.2cm}
 
+% Code Snippet Formatting
+\lstset{
+    backgroundcolor=\color{black!5},        % set backgroundcolor
+    basicstyle=\footnotesize\ttfamily,      % basic font setting
+    frame=single,                           % draw a frame at the top and bottom of the code block
+    framesep=5pt,                           % frame margin
+    xleftmargin=5pt,                        % frame margin
+    xrightmargin=5pt,                       % frame margin
+    tabsize=4,                              % tab space width
+    showstringspaces=false,                 % don't mark spaces in strings
+    breaklines=true,                        % wrap lines
+    commentstyle=\color{darkolivegreen},    % comment color
+    keywordstyle=\color{darkmagenta},       % keyword color
+    stringstyle=\color{earthyellow},        % string color
+    identifierstyle=\color{cerulean}
+}
 
-%%%% Resources & quotes 
-\usepackage[backend=biber, sorting=none,block=ragged,citestyle=authoryear]{biblatex}
+
+% Bibliography & Citation
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage[backend=biber, sorting=none, block=ragged, citestyle=authoryear]{biblatex}
 \DeclareNameAlias{sortname}{last-first}
 \DeclareNameAlias{default}{last-first}
 \addbibresource{resources.bib}
-\usepackage{csquotes}
-\usepackage{hyperref}
 
- 
+% Continuous Number (1, 2, 3 ..)
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+\counterwithout{equation}{chapter}
+
 % Graphics
-\usepackage{pgfplots}  %Enabels draw diagrams
 \usepackage{graphicx}
-\usetikzlibrary{shapes,arrows}
+\usepackage{pgfplots}  %Enabels draw diagrams
 \usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
 \usetikzlibrary{shapes,arrows}
 \tikzstyle{decision} = [diamond, draw, fill=blue!20, 
     text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
@@ -80,81 +129,5 @@
 \tikzstyle{line} = [draw, -latex']
 \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
     minimum height=2em, text badly centered, text width=4.5em]
-\usepackage{siunitx}
-\usepackage[siunitx]{circuitikz}    
-
-% Colors
-\definecolor{codegray}{gray}{0.9}
-\newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
-\usepackage{xcolor}
-
-
-
-%Test
-\usepackage{blindtext} % Does Uses for testing 
-\usepackage{lipsum}
-
-
-%\setlist[description]{%
- % topsep=30pt,               % space before start / after end of list
-  %itemsep=5pt,               % space between items
- % font={\lato}, % set the label font
-%  font={\bfseries\sffamily\color{red}}, % if colour is needed
-%}
-% colors
-%\definecolor{color1}{HTML}{000060}
-%\definecolor{color1}{HTML}{8C260F}
-%\definecolor{color2}{HTML}{333333}
-
-%\usepackage{fontspec}
-%
-%\setmainfont[Ligatures=TeX,Scale=1.15]{fbb}
-%\usepackage[lining,tabular,scaled=1.15]{fbb}
-% \usepackage[lining]{ebgaramond}
-% \usepackage{ebgaramond-maths}
-% \usepackage[garamond]{mathdesign}
-% \usepackage[]{lato}
-% \newcommand{\lato}{\usefont{T1}{fla}{b}{n}}
-% \newcommand{\headingfont}{\usefont{T1}{fla}{eb}{n}}
-% \DeclareTextCommand{\nobreakspace}{T1}{\leavevmode\nobreak\ }
-
-%%% fancy sections
-%\usepackage{titlesec}
-%\titleformat{\chapter}{\headingfont\LARGE\bfseries\scshape\color{color1}}{\thechapter}{1em}{}[\titlerule]
-%\titleformat{\section}{\color{color1}\headingfont\LARGE}{\thesection}{1em}{}[\titlerule]
-%\titleformat{\subsection}{\color{color1}\headingfont\Large}{\thesubsection}{1em}{}
-%\titleformat{\subsubsection}{\color{color4}\headingfont\large}{\thesubsubsection}{0em}{}
-%%%
-
-% \usepackage{caption}
-% \usepackage{subcaption}
-% \DeclareCaptionFormat{upper}{{\headingfont#1}{\headingfont#2}{#3}\par}
-% \DeclareCaptionFormat{upper}{{\josefin #1}{\josefin #2}{\josefin #3}\par}
-% \captionsetup{labelfont={bf,color=color2},textfont={normalsize,color=color2},format = upper,figurename={Flowchart },tablename={Tabel }}
-
-%\newcommand{\sectionbreak}{\samepage}
-
-% \setlength{\headheight}{15pt}
- %\usepackage{fancyhdr}
-% \pagestyle{fancy}
- %\rhead{\footnotesize\slshape\nouppercase{{\leftmark}}}
-
-%\makeatletter
-%\rhead{\color{color2}\@date}
-%\makeatother
-%\newlength{\myheight}
-%\lfoot{
-%\settoheight{\myheight}{\thepage}
-%\raisebox{-2ex-0.5\myheight}{\includegraphics[height=4ex]{logo}}
-%}
-%\cfoot{\thepage \hspace{1pt}}
-
-%\renewcommand{\headrulewidth}{0pt}
-
-%\noindent Udarbejdet af Andreas Kjeldsgaard Jensen, Christian Skov Esbensen, %Frederik Ørnstrøm Heyde-Petersen, Jakob Møller Kaad, Martin Doung Dong Nguyen \& %Troels Victor Dupont Andteasen (Syddansk Universitet, MMMI, %Civilingeniørstuderende, 2. semester), under tilsyn af Jan Petersen, (Syddansk %Universitet) i semesterprojektet ``Pole Position Project''. Projektet forløb %mellem uge 9 og uge 21, 2018.
-%\copyright{} 2018, Denmark
 
 \makeatother
-
-
-
