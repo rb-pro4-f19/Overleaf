@@ -7,8 +7,47 @@
 
 \begin{document}
 \section{Introduction}
-At the start of the project a pan-tilt system was handed out. The system consists of three different aluminium profile assemblies; a stand, an outer pan, and inner tilt assembly, thus giving the system two degrees of freedom.
+At the start of the project a pan-tilt system was handed out. The system consists of three different aluminium profile assemblies; a stand, an outer pan, and inner tilt assembly, thus giving the system two degrees of freedom. 
+A CAD drawing of the system was produced in the software Fusion 360, from measurements taken with a vernier caliper with an accuracy of $ 0.05 \,\mathrm{mm}$.
+The drawn parts of the was given the properties of there respective materials, so that a approximation of the weight of each assembly could be made. On the basis of these approximations the software Fusion 360 was able to calculate the moment of inertia for the pan and tilt assembly.
 
-A CAD drawing of the system is produced in the software Fusion 360, from measurements taken with a set of vernier calipers
+\section{The moment of inertia}
+The moment of inertia of the tilt assembly can be calculated easily, because it is not dependent on any variables. The same can not be said about the pan assembly since the inertia of the tilt assembly is included, and dependent on the angle of the tilt system.
+\begin{equation}\label{eq:I_tilt}
+    I_{Tilt} = 0.01682\, \frac{\mathrm{Kg}}{m^2}
+\end{equation}
+Fusion 360 were able to generate the different moments of inertia by manipulating the angle of the tilt assembly. These results are shown in table \ref{ta:Inertia_PAN}. Equation \eqref{eq:I_pan} shows a sinusoidal approximation of the pan assembly's moment of inertia, based on the values in table \ref{ta:Inertia_PAN}.
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|c|c|}\hline
+    \textbf{$\theta$ (degrees)}& \textbf{Moment of inertia $\left(\frac{\mathrm{Kg}}{\mathrm{m^2}}\right)$}\\\hline\hline
+    0     & 0.07969 \\  \hline
+    22.5  & 0.08206 \\  \hline
+    45    & 0.08783 \\  \hline
+    67.5  & 0.0936  \\  \hline
+    90    & 0.09598 \\  \hline
+    112.5 & 0.09359 \\  \hline
+    135   & 0.08782 \\  \hline
+    157.5 & 0.08206 \\  \hline
+    180   & 0.07968 \\  \hline
+    202.5 & 0.08206 \\  \hline
+    225   & 0.08782 \\  \hline
+    247.5 & 0.09359 \\  \hline
+    270   & 0.09598 \\  \hline
+    292.5 & 0.0936  \\  \hline
+    315   & 0.08783 \\  \hline
+    337.5 & 0.08206 \\  \hline
+    360   & 0.07969 \\  \hline
+    \end{tabular}
+\caption{Moment of inertia for the pan assembly}
+\label{ta:Inertia_PAN}
+\end{table}
+
+\begin{equation}\label{eq:I_pan}
+    I_{Pan} \approx \left(0.00815\cdot\sin\left(0.0349\cdot \theta + 4.713\right)+0.08783\right) \frac{\mathrm{Kg}}{m^2}
+\end{equation}
+
+\section{System restrictions}
 
 \end{document}

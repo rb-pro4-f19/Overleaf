@@ -1,0 +1,100 @@
+\section{Embedded Software Design}
+1. Processes vs Threads
+- Limited Memory vs Synkronisering Extras
+    - Limiited memory therfor Threads are chosen. -- ...
+    - No nested processes (no threads in processes)
+- Independent Units vs Event Driven Programs
+    - Indepedent units, because a event driven programs are hard to realise as RTOS.
+    - Small project
+    - Low requirement specifications
+
+2. Thread usages
+- Multi-threading and Parallel programming
+    - Our CPU supports only 1 "real" thread at a time.
+    - We do need / chosen several Threads in this project to realise it.
+- Hand-in-hand blocking \& execution
+    - We need systemblocking as it is better than to race.
+- Code \& Libraries to be re-entrant \& thread-safe
+    - It is required thread-safe.
+- PThread Library
+  - Model cases
+    - Producer - Consumer --
+    - Peer ( multiple I/O processing) -- SPI take care
+    - Need to choose a Library -
+    - FREERTOS.org - https://www.freertos.org/RTOS.html
+
+3. Scheduler \& Prio
+- Soft Real Time vs Hard Real time
+    - Choose which events or processes or tasks are which
+    - Nice vs Prio
+- Time slicing vs Starvation
+    - RTOS tasks are to be run.. but soft real time might consider time slicing due to starvation.
+- Sync in Priobased Scheduling
+    - ....
+- Deadlock Avoidance (bankers)
+    - Code must be tested for deadlocks
+- Priority Inversion - prio inheritance, prio protect
+    - Might not happend, we will design so this will not occur otherwise library for this..
+
+5. Signals vs polling
+    - Small systems no need for signals - and indepedent units - therefor polling
+- Async vs Sync
+    - Async UART, SPI,
+- Racing vs Blocking - A race condition is a flaw that occurs when the timing or ordering of events affects
+    - Blocking
+- Timers vs loops
+    - Timers if nes otherwise loops.
+
+6. Interrupts vs Signals
+    - No interrupts in generel bcs no reason to use it!
+
+7. Sockets
+- Interface to multiple Devices
+    - 1 UART to PC
+    - 3 SPI per purpose FPGA.
+    - Joystick
+        - But no common bus
+
+8. Fejl Tolerancer
+- Default ErrorHandler / ExceptionHandler
+    - blinking LED + UART code
+- Avoid Race Conditions w/ proper sync
+- Avoid Memory Leaks w/ Memory usage balancing - Verify memory profilers
+- Handle error cases, Extreme conditions
+    - Defaults for a switch, else, if
+- Avoid infinite  loops - use timeouts.
+- Regorganize code to avoid / prevent deadlocks
+
+9. Design for Crash Recovery
+- Restart crusial flows - Main task f.eks.
+- Design for Hang Recovery - with Watchdogs
+- Design for power fialtures - brown out detections / power-down saves
+
+Design for Hardware
+- Speed Mismatch (faster/slower)
+- Time-sensitive Hardware interaction spi, i2s - precise busy wait delays
+Non-responsive hardware
+- Timeout rather than uncondictional accesses
+ Hardware with irregular/incorrect responses
+- Do prober handling for the extreme / abnormal / invalid cases
+Hardware delays (Debounce, Rise time)
+- Appropiate timers / delays to offset
+
+Design for Performance
+- IPC vs Sync
+    - Multiprocesses (Context Switches) vs Multihreaded ( same context)
+    - Communication vs Sync overheads
+- Schedulers and Priority
+    - Normal vs Real time
+    - Nice vs Priority
+- Yielding vs Busy wait
+    - LAtency vs Precision
+- Interrupt / signal usage
+    - High Prio and Async attention
+    - Missing = invalidate assumptions
+- Design for Real time Performance
+- Have very few real time processes
+- Keep the real time short \& effiecient
+    - INGEN MEMORY ALLOCATION
+    - if essential move to init sections
+    
