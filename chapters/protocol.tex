@@ -1,0 +1,38 @@
+\subsection{SPI Protocol}
+Basic SPI protocol; 4 bit address, 8 bit data and 4 bit checksum. The checksum is calculated from the 12 bits of the frame, using the BSD algorithm.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{cccc}
+\hline
+\multicolumn{1}{|l|}{}      & \multicolumn{1}{c|}{Address} & \multicolumn{1}{c|}{Data}     & \multicolumn{1}{c|}{Checksum} \\ \hline
+\multicolumn{1}{|c|}{CTRL}  & \multicolumn{1}{c|}{0000}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{PWM1}  & \multicolumn{1}{c|}{0001}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{PWM2}  & \multicolumn{1}{c|}{0010}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{ENC1}  & \multicolumn{1}{c|}{0011}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{ENC2}  & \multicolumn{1}{c|}{0100}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{HALL1} & \multicolumn{1}{c|}{0101}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{HALL2} & \multicolumn{1}{c|}{0110}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{CUR1}  & \multicolumn{1}{c|}{0111}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{CUR2}  & \multicolumn{1}{c|}{1000}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\end{tabular}
+\end{table}
+
+Response is:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{cccc}
+\hline
+\multicolumn{1}{|l|}{}       & \multicolumn{1}{c|}{Data}            & \multicolumn{1}{c|}{Checksum} \\ \hline
+\multicolumn{1}{|c|}{CTRL}   & \multicolumn{1}{c|}{0000000000000}   & \multicolumn{1}{c|}{0000}     \\ \hline
+\multicolumn{1}{|c|}{PWM1}   & \multicolumn{1}{c|}{0000000000000}   & \multicolumn{1}{c|}{0000}     \\ \hline
+\multicolumn{1}{|c|}{PWM2}   & \multicolumn{1}{c|}{0000000000000}   & \multicolumn{1}{c|}{0000}     \\ \hline
+\multicolumn{1}{|c|}{ENC1}   & \multicolumn{1}{c|}{XXXXXXXXXXXX}    & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{ENC2}   & \multicolumn{1}{c|}{XXXXXXXXXXXX}    & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{HALL1}  & \multicolumn{1}{c|}{XXXXXXXXXXXX}    & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{HALL2}  & \multicolumn{1}{c|}{XXXXXXXXXXXX}    & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{CUR1}   & \multicolumn{1}{c|}{XXXXXXXXXXXX}    & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|c|}{CUR2}   & \multicolumn{1}{c|}{XXXXXXXXXXXX}    & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\end{tabular}
+\end{table}
