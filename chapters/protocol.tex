@@ -1,21 +1,28 @@
 \subsection{SPI Protocol}
-Basic SPI protocol; 4 bit address, 8 bit data and 4 bit checksum. The checksum is calculated from the 12 bits of the frame, using the BSD algorithm.
+Communication between the MCU (master) and FPGA (slave) is done by the use of SPI. A custom 16-bit frame format is used. The MCU can transmit a frame of type \texttt{send/request} while the FPGA can reply with a frame of type \texttt{response}.\medskip
+
+\subsubsection{MCU}
+The standard Freescale protocol is configured to \texttt{16-bit} frames with transmission rate of \texttt{8 Mb/s} in \texttt{Mode 0}. The send/request type frames are comprised of an address, data and checksum field of the sizes: respectively \texttt{ADDR:4}, \texttt{DATA:8} and \texttt{CHKSUM:4}. Response frames omit the address field and consist instead of respectively \texttt{DATA:12} and \texttt{CHKSUM:4}.\medskip
+
+Send/request type frames must be acknowledged with a frame of valid checksum, although the content of the frame may be disregarded. Checksum is calculated using the BSD algorithm\footcite[]{bsd_wiki} on the 12 most-significant bits of a frame.\medskip
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{cccc}
+\begin{tabular}{|c|c|c|c|}
 \hline
-\multicolumn{1}{|l|}{}      & \multicolumn{1}{c|}{Address} & \multicolumn{1}{c|}{Data}     & \multicolumn{1}{c|}{Checksum} \\ \hline
-\multicolumn{1}{|c|}{CTRL}  & \multicolumn{1}{c|}{0000}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
-\multicolumn{1}{|c|}{PWM1}  & \multicolumn{1}{c|}{0001}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
-\multicolumn{1}{|c|}{PWM2}  & \multicolumn{1}{c|}{0010}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
-\multicolumn{1}{|c|}{ENC1}  & \multicolumn{1}{c|}{0011}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
-\multicolumn{1}{|c|}{ENC2}  & \multicolumn{1}{c|}{0100}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
-\multicolumn{1}{|c|}{HALL1} & \multicolumn{1}{c|}{0101}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
-\multicolumn{1}{|c|}{HALL2} & \multicolumn{1}{c|}{0110}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
-\multicolumn{1}{|c|}{CUR1}  & \multicolumn{1}{c|}{0111}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
-\multicolumn{1}{|c|}{CUR2}  & \multicolumn{1}{c|}{1000}   & \multicolumn{1}{c|}{XXXXXXXX} & \multicolumn{1}{c|}{XXXX}     \\ \hline
+\multicolumn{1}{|l|}{} & Address & Data     & Checksum \\ \hline
+CTRL                   & 0000    & XXXXXXXX & XXXX     \\ \hline
+PWM1                   & 0001    & XXXXXXXX & XXXX     \\ \hline
+PWM2                   & 0010    & XXXXXXXX & XXXX     \\ \hline
+ENC1                   & 0011    & XXXXXXXX & XXXX     \\ \hline
+ENC2                   & 0100    & XXXXXXXX & XXXX     \\ \hline
+HAL1                   & 0101    & XXXXXXXX & XXXX     \\ \hline
+HAL2                   & 0110    & XXXXXXXX & XXXX     \\ \hline
+AMP1                   & 0111    & XXXXXXXX & XXXX     \\ \hline
+AMP2                   & 1000    & XXXXXXXX & XXXX     \\ \hline
 \end{tabular}
+\caption{Combinations of a send/request frame.}
+\label{tab: spi_1}
 \end{table}
 
 Response is:
@@ -35,4 +42,11 @@ Response is:
 \multicolumn{1}{|c|}{CUR1}   & \multicolumn{1}{c|}{XXXXXXXXXXXX}    & \multicolumn{1}{c|}{XXXX}     \\ \hline
 \multicolumn{1}{|c|}{CUR2}   & \multicolumn{1}{c|}{XXXXXXXXXXXX}    & \multicolumn{1}{c|}{XXXX}     \\ \hline
 \end{tabular}
+\caption{Response frame.}
 \end{table}
+
+\subsubsection{FPGA}
+is designed to have 3 SPI components, one for transmitting, recieving and a SPI-topmodule where all the checksum validation/creation is done. The transmitting and recieving module are designed as slaves of the MCU, therefor as statemachines following the Freescale protocol. The topmodule is designed to be active while the transmitter and recievier is anactive, therefor ss (slaveselect) \texttt{'1'}. The data flow in the SPI topmodule is respectively SPI topmodule varifies the checksum of the recived package, sends the information to a controller based on the checksum, recieves information from the controller to transmit in next transmission.
+
+
+
