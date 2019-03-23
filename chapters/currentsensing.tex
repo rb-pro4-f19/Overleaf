@@ -1,0 +1,42 @@
+\subsection{Current sensing}
+
+
+there are most often used either ohms law or magnet field current sensing. The simple way is using ohms law, and is therefore chosen. This way uses a low shunt resistor and the voltage across it is converted to a current, therefore requiring an op-amp to multiply the voltage. There are 3 places the shunt resistor can be placed, all of them got pros and cons. It is usally prefered to sense as close to the power supply as possible, therefore high-side measuring is usally used. Since the motor has friction, filtering has to be used to reduce electromagnetic interference and spikes. A simple technique to do this is using a common mode filter.... The common mode filter act as a transmission line for differential mode signals and as inductors for common mode noise. Besides using a common mode filter two low pass filters are used..... 
+The circuit parameters:
+
+\[
+R_{sense}\ll R_{1}\;\&\&\;R_{2}
+\]
+Besides that it is important $R_{2}=R_{1}$ is close to eachother,
+otherwise the CMRR is will degrade.
+
+\[
+C_{1}=C_{2}
+\]
+It is not as important that the capacitors are equal, but around 5\%
+accuracy.
+
+\[
+C_{3}\gg C_{1}\;and\;C_{3}\gg C_{1}
+\]
+The common mode filter can be calculated:
+
+\[
+f_{-3db}=\frac{1}{2\pi R_{1}C_{1}}\;and\;f_{-3db}=\frac{1}{2\pi R_{2}C_{2}}
+\]
+The differential mode filter
+
+\[
+f_{-3db}=\frac{1}{2\pi\left(R_{1}+R_{2}\right)\left[\left(\frac{C_{1}\cdot C_{2}}{C_{1}+C_{2}}\right)+C_{3}\right]}
+\]
+
+\begin{tabular}{|c|}
+\hline 
+The common mode refers to signals or noise that flow in the same direction
+in a pair of lines.\tabularnewline
+\hline 
+\hline 
+The differential (normal) mode refers to signals or noise that flow
+in opposite directions in a pair of lines.\tabularnewline
+\hline 
+\end{tabular}

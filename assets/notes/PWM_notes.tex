@@ -1,3 +1,12 @@
-Rød = Pin 10 = GND
-Vcc på Logic\_out+supply= nederst til højre
-Data lenght is 8 bits = 256 values
+Notes:
+- Data length for the VHDL pwm test code is 8 bits = 256 values
+- Red cable = Pin 10 on the H-bridge = GND
+
+We wrote a VHDL-code that allowed us to change the duty cycle of the PWM-signal with the pmod encoder. The pwm-signal from the FPGA was connected to the H-bridge, which was powered with 12V and connected to a motor.
+With a oscilloscope, we found out that the H-bridge was active low, which means that the speed of the motor depended on the low-signal duty cycle.
+The enable pins are active high.
+
+The connection to the print on the robot that gives access to the sensors can be found in the datasheet EMG30-protection. If the J1-connector turns 90 degrees counter clockwise, the datasheet will match the print on the robot.
+
+This means that pin 7 which is Hall-sensor-Vcc(+5VDC) will be on the lower right side.
+The Vcc on the H-bridge and the Vcc on the FPGA must NOT be shared!

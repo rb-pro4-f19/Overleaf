@@ -1,0 +1,49 @@
+\include{defs.tex}
+For regulation of the pan/tilt assembly, a mathematical model needs to be formulated. The model has to describe the movement (speed and acceleration) of the system, based on motor voltage and the resulting torque produced by the motor.
+
+
+
+\begin{figure}[H]
+    \centering
+      \begin{circuitikz} \draw
+        (0,0) to [open,v=$V_m$] (0,3)
+        to[L = $L$, v<= $L\cdot\frac{dI}{dt}$] (3,3) to[R = $R_1$ ,v<=$R_1 \cdot I$] (6,3) to node[elmech]{M}(6,0)
+        -- (0,0)
+        ;  
+        \draw (6.3,2.5) to [open,v^<=$k_{e}\dot{\theta}_m$] (6.3,0.5);
+     \end{circuitikz}
+    \caption{Circuit of the DC motor}
+    \label{fig:my_label}
+\end{figure}
+
+Given the voltages of the circuit elements it is possible to derive a function for $V_m$. Where the expression $k_{e}\dot{\theta}_m$ describes the counter electromotive force of the DC motor.
+
+\begin{equation}
+    V_m = L\,\frac{dI}{dt} + R_{1}I(t)+k_{e}\dot{\theta}_m(t)
+\end{equation}
+
+From Newton's 2nd Law of rotation the net torque of a rotational system is given by the equation $\tau _{net} = J\cdot \ddot{\theta}$. The forces acting on the motor consists of the torque produced by the DC motor and the force of friction.
+The torque produced is given by the equation $\tau = I\cdot k_{e}$, where $k$ is the  electromotive force constant specific to the motor. The following equation describes the net torque of the DC motor.
+
+
+\begin{equation}
+    I(t)k_{m2} = \mu_m\dot{\theta}_m(t) + J_m\ddot{\theta}_m(t)
+\end{equation}
+
+In order to derive a mathematical model for the entire assembly it is necessary to incorporate the torque contribution of the remaining pan/tilt system. Two mathematical expressions can be derived; one describing the torque of the pan-system and one describing the tilt-system.
+\newline
+
+The force from the motor i transferred to the rotational axes of the pant/tilt-mechanisms with a gear-ratio $G$, this results in a reduced angular velocity, compared to the motor.
+
+The net torque of the tilt-mechanism can be described by the torque of the rotation and a force of friction in addition to the torque contributed by the DC-motor. Hence the following equation for the tilt-mechanism.
+
+\begin{equation}
+    I(t)k_{m2} = \mu_m\dot{\theta}_m(t) + J_m\ddot{\theta}_m(t) + \frac{J_{tilt}\ddot{\theta}_m + \mu_{tilt}\dot{\theta}_m}{G}
+\end{equation}
+
+The moment of inertia of the pan-mechanism is dependant on the angle of the tilt-mechanisms \ref{}. Therefore the net torque of the pan-mechanism is as follows.
+
+\begin{equation}
+    I(t)k_{m2} = \mu_m\dot{\theta}_m(t) + J_m\ddot{\theta}_m(t) + \frac{J_{pan}(\theta_{tilt})\ddot{\theta}_m + \mu_{pan}\dot{\theta}_m}{G}
+\end{equation}
+

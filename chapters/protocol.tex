@@ -6,7 +6,7 @@ The standard Freescale protocol is configured to \texttt{16-bit} frames with tra
 
 Send/request type frames must be acknowledged with a frame of valid checksum, although the content of the frame may be disregarded. Checksum is calculated using the BSD algorithm\footcite[]{bsd_wiki} on the 12 most-significant bits of a frame.\medskip
 
-\begin{table}[h!]
+\begin{table}[ht!]
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -45,8 +45,18 @@ Response is:
 \caption{Response frame.}
 \end{table}
 
-\subsubsection{FPGA}
-is designed to have 3 SPI components, one for transmitting, recieving and a SPI-topmodule where all the checksum validation/creation is done. The transmitting and recieving module are designed as slaves of the MCU, therefor as statemachines following the Freescale protocol. The topmodule is designed to be active while the transmitter and recievier is anactive, therefor ss (slaveselect) \texttt{'1'}. The data flow in the SPI topmodule is respectively SPI topmodule varifies the checksum of the recived package, sends the information to a controller based on the checksum, recieves information from the controller to transmit in next transmission.
+\subsubsection{-...-}
+is designed with 3 SPI modules: a reciever, transmitter and topmodule. The topmodule is made to ease the task of the controller by a simple interface; checksum validation and easy flow management (will discuss this later). The transmitter and recieving module is following the MCU's protocol, which is the Freescale protocol. The overall flow in the FPGA is respectively: new data is coming, validate data, send data to controller, get reply from controller and reply on next message.
+
+\subsubsection{Transmitter/Reciever SPI}
+those module are designed with 1 main state machine containing the following states: \texttt{IDLE}, \texttt{TRANSMIT}, \texttt{WAITING}. The major design choice was to pick asynchronous or synchronous design (use internal clk to sample incoming data). Pros for asynchronous is that it has minimum delaytime and this is baiscally it, which is why synchronous is used. The synchronous method uses the internal clk and shift registers for incoming data and therefore debounces the signal. It is only slightly slower as long as the debouncing is kept low. The module flow is when slaveselect is low, follow the freescale protocol. When slaveselect goes high reciever delivers new data to topmodule SPI and transmitter is ready to send new data on next low slaveselect.
+
+\subsubsection{Topmodule SPI}
+this module is designed to recieve new data, validate it with a 12bit BCD checksum, send the information to the controller, the controller parses the information to the module it is supposed to communicate with. Then the module acknowlegedes to the controller and the message is then parsed to the spi module, where a checksum is added as a trailer and ready to sent on next clock. The main concern of designing this module is based on the clock cycles from 
+
+
+
+
 
 
 
