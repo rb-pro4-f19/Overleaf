@@ -1,0 +1,19 @@
+Introduktion til hvor vi er: SPI protokol defineret
+
+Sjovt at se hvordan strømmen er, ergo en anbefaling at kigge på strømmen der løber ind i motoren. Lav en strømsløjfe, kan ligge på FPGA'en. Kun en reguleringssløjfe skal være på MIC'en. Benytte samme PID-block til motoren => parallelitet som FPGA understøtter.
+    Strømløkke, må implementeres på FPGA
+
+Krav: 
+Vil vi have oversving? Singularitet kan løses med virtuelbegrænsning. Vil gerne have et I-led i reguleringen, da det er der nogle problematikker ligger. D-led er valgfrit, kig på respons og se om det bliver pænere, hvis det gør skal det helst inkluderes. 
+
+Modelering: 
+Komplet model af system? - ja, det skal i. Inddrag friktion, det vil gøre det nemmere. Motor parameterne kan findes, - han ligger fremgangsmåde op. Små bidrag skal væk. Betragt kun inputet og outputet
+
+Inerti og friktion, vil indgå i motor parameterne. ud fra dem kan man finde motorparameterne. 
+
+torsions fjeder -> stivhed i båndet
+
+skriv hvad vi antager
+
+
+Lav en model til næste møde, send den og få feedback. 

@@ -1,0 +1,27 @@
+\documentclass{report}
+\include{defs}
+\title{Datasheet}
+\begin{document}
+\maketitle
+
+\tableofcontents
+\section{Test}
+
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+\multicolumn{2}{|c|}{\textbf{MCU module \textit{SSSI0}}} \\ \hline\hline
+\multicolumn{1}{|c|}{\textbf{Pin}}  & \textbf{Function}  \\ \hline
+PA2                        & CLK       \\ \hline
+PA3                        & SS        \\ \hline
+PA4                        & MISO (Rx) \\ \hline
+PA5                        & MOSI (Tx) \\ \hline
+\end{tabular}
+\caption{SPI pin map off MCU}
+\label{ta:SPi_pin_MCU}
+\end{table}
+
+\end{document}
